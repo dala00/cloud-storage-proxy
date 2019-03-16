@@ -1,0 +1,17 @@
+{
+  "name": "cloud-storage-proxy",
+  "version": 2,
+  "builds": [{ "src": "index.js", "use": "@now/node" }],
+  "routes": [{ "src": "(.*)", "dest": "index.js" }],
+  "env": {
+    "GOOGLE_APPLICATION_CREDENTIALS_FILENAME": "@google-application-credentials-filename",
+    "GCP_PROJECT_ID": "@gcp-project-id",
+    "STORAGE_BUCKET": "@storage-bucket"
+  },
+  "files": [
+    "keys/key.json",
+    "index.js",
+    "package.json",
+    "yarn.lock"
+  ]
+}
