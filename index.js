@@ -51,7 +51,7 @@ function getContentType(path) {
   if (path.match(/\.png$/i)) {
     return 'image/png'
   }
-  if (path.match(/\.jpe?g$/)) {
+  if (path.match(/\.jpe?g$/i)) {
     return 'image/jpeg'
   }
   return null
