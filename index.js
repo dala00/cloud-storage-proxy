@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
   const image = await getRawData(file)
 
   res.writeHead(200, {
-    'Cache-Control': 'public, max-age=315360000',
+    'Cache-Control': 'public, max-age=315360000, s_maxage=315360000',
     Expires: new Date(Date.now() + 315360000000).toUTCString(),
     'Content-Type': getContentType(path),
     'Content-Length': image.length
