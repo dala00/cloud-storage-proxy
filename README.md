@@ -12,9 +12,9 @@ The way to develop on local.
 yarn
 ```
 
-### Put GCP key for reading
+### Use GCP integration
 
-Put json key to keys folder
+https://zeit.co/integrations/gcloud
 
 ### Create now.json
 
@@ -23,6 +23,10 @@ You can copy from now.example.json.
 ### Set environment variables
 
 Set environment variables by .env. You can copy .env.example.
+
+Set GCLOUD_CREDENTIALS to base64 encoded json credential of GCP service account.
+
+(Like `cat your.json | base64`)
 
 ### Start server
 
