@@ -2,9 +2,10 @@ require('dotenv').config()
 const { createError } = require('micro')
 const { Storage } = require('@google-cloud/storage')
 const storage = new Storage({
-  keyFile:
-    __dirname + '/keys/' + process.env.GOOGLE_APPLICATION_CREDENTIALS_FILENAME,
-  projectId: process.env.GCP_PROJECT_ID
+  projectId: process.env.GCP_PROJECT_ID,
+  credentials: JSON.parse(
+    Buffer.from(process.env.GCLOUD_CREDENTIALS || '', 'base64').toString()
+  ),
 })
 const bucket = storage.bucket(process.env.STORAGE_BUCKET)
 
@@ -26,7 +27,7 @@ module.exports = async (req, res) => {
     'Cache-Control': 'public, max-age=315360000, s_maxage=315360000',
     Expires: new Date(Date.now() + 315360000000).toUTCString(),
     'Content-Type': getContentType(path),
-    'Content-Length': image.length
+    'Content-Length': image.length,
   })
   res.end(image)
 }
@@ -37,8 +38,8 @@ async function getRawData(file) {
 
     file
       .createReadStream()
-      .on('error', err => reject(err))
-      .on('data', function(chunk) {
+      .on('error', (err) => reject(err))
+      .on('data', function (chunk) {
         contents = Buffer.concat([contents, chunk])
       })
       .on('end', () => {
